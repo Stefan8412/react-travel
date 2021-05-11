@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "dev": "vite",
-      "build": "vite build",
-      "serve": "vite preview"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/Stefan8412/react-travel#readme",
   "dependencies": {
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "@chakra-ui/react": "^1.6.1",
+    "framer-motion": "^4.1.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
