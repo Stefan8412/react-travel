@@ -1,5 +1,10 @@
 import React from "react"
+import { ChakraProvider } from "@chakra-ui/react"
+import {Home} from "./pages/Home"
 
 export const App=()=>(
-    <h1>Hello there</h1>
+    <ChakraProvider>
+        <Home/>
+        </ChakraProvider>
+    
     )
