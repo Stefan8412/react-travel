@@ -1,6 +1,6 @@
-import React from "react";
-import { Heading, Box, Center, Button } from "@chakra-ui/react";
-import bg from "../assets/bg.jpg";
+import React from 'react'
+import { Heading, Box, Center, Button } from '@chakra-ui/react'
+import bg from '../assets/bg.jpg'
 
 export const Home = () => (
   <Box background={`url('${bg}') center / cover no-repeat`} height="100vh">
@@ -13,4 +13,4 @@ export const Home = () => (
       </div>
     </Center>
   </Box>
-);
+)
