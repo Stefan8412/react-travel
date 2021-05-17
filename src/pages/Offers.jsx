@@ -61,6 +61,7 @@ const Card = ({
 export const Offers = () => {
   const { data, error, isLoading } = useOffers()
   const [searchCountry, setSearchCountry] = React.useState(' ')
+  const [newCountry, setNewCountry] = React.useState(false)
   const toast = useToast()
   if (error) {
     toast({
@@ -94,62 +95,82 @@ export const Offers = () => {
     <>
       <Header />
       <Hero searchCountry={searchCountry} setSearchCountry={setSearchCountry} />
-      {isLoading && (
-        <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
-      )}
 
       <Box p="4">
         <Grid templateColumns="repeat(5,1fr)">
           <GridItem>
             <Text fontWeight="bold">Filter</Text>
-            <Checkbox>New only</Checkbox>
+            <Checkbox newCountry={newCountry} onChange={() => setNewCountry(!newCountry)}>
+              New only
+            </Checkbox>
             <Text fontWeight="bold">Filter by country</Text>
-            <Stack>
-              <Radio>All</Radio>
-              {allCountries.map((country) => (
-                <Radio>{country} </Radio>
-              ))}
-            </Stack>
+            {isLoading ? (
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            ) : (
+              <Stack>
+                <Radio>All</Radio>
+                {allCountries.map((country) => (
+                  <Radio>{country} </Radio>
+                ))}
+              </Stack>
+            )}
           </GridItem>
+          {/* Airbnb */}
           <GridItem colSpan={4}>
-            <SimpleGrid columns={4} spacing="40px">
-              {data
-                .filter(
-                  (items) =>
-                    items.country.toLowerCase().includes(searchCountry.toLowerCase()) ||
-                    items.city.toLowerCase().includes(searchCountry.toLowerCase())
-                )
-
-                .map(
-                  ({
-                    id,
-                    thumbnail,
-                    nights,
-                    city,
-                    country,
-                    price,
-                    rating,
-                    reviewCount,
-                    createdAt,
-                  }) => (
-                    <Card
-                      key={id}
-                      imageUrl={thumbnail}
-                      numberOfNights={nights}
-                      destinations={`${city},${country}`}
-                      formattedPrice={new Intl.NumberFormat('sk', {
-                        style: 'currency',
-                        currency: 'EUR',
-                        maximumFractionDigits: 0,
-                      }).format(price)}
-                      rating={rating}
-                      reviewsCount={reviewCount}
-                      linkTo={`offers/${id}`}
-                      isNew={differenceInMonths(new Date(), new Date(createdAt)) <= 6}
-                    />
+            {isLoading ? (
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            ) : (
+              <SimpleGrid columns={4} spacing="40px">
+                {data
+                  .filter(
+                    (items) =>
+                      items.country.toLowerCase().includes(searchCountry.toLowerCase()) ||
+                      items.city.toLowerCase().includes(searchCountry.toLowerCase())
                   )
-                )}
-            </SimpleGrid>
+
+                  .map(
+                    ({
+                      id,
+                      thumbnail,
+                      nights,
+                      city,
+                      country,
+                      price,
+                      rating,
+                      reviewCount,
+                      createdAt,
+                    }) => (
+                      <Card
+                        key={id}
+                        imageUrl={thumbnail}
+                        numberOfNights={nights}
+                        destinations={`${city},${country}`}
+                        formattedPrice={new Intl.NumberFormat('sk', {
+                          style: 'currency',
+                          currency: 'EUR',
+                          maximumFractionDigits: 0,
+                        }).format(price)}
+                        rating={rating}
+                        reviewsCount={reviewCount}
+                        linkTo={`offers/${id}`}
+                        isNew={differenceInMonths(new Date(), new Date(createdAt)) <= 6}
+                      />
+                    )
+                  )}
+              </SimpleGrid>
+            )}
           </GridItem>
         </Grid>
       </Box>
