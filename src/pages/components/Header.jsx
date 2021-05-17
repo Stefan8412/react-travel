@@ -24,10 +24,12 @@ export const Header = () => {
               RELAX & FUN
             </Text>
           </Link>
+
           <nav>
             <NavLink to="/">Home</NavLink>
 
             <NavLink to="/offers">Offers</NavLink>
+            <NavLink to="/gallery">Gallery</NavLink>
           </nav>
         </Container>
       </Box>
